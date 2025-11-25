@@ -8,18 +8,46 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+TextEditingController loginController=TextEditingController();
+TextEditingController passController=TextEditingController();
+
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        FilledButton.tonal(onPressed: (){
-             Navigator.of(context).push( MaterialPageRoute(  builder: (_) => ViewScreen()));
-        },
-         child: Text('Ir a segunda pantalla'))
-      ],
-      
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextFormField(
+            controller: loginController,
+            decoration: InputDecoration(
+              hintText: 'Usuario',
+              border: OutlineInputBorder(),
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 15,
+                horizontal: 15,
+              )
+            ),
+          ),
+          SizedBox(height: 20),
+          TextFormField(
+            controller: passController,
+            decoration: InputDecoration(
+              hintText: 'Contraseña',
+              border: OutlineInputBorder(),
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 15,
+                horizontal: 15,
+              )
+            )
+          ),
+          FilledButton.tonal(onPressed: (){
+               Navigator.of(context).push( MaterialPageRoute(  builder: (_) => ViewScreen()));
+          },
+           child: Text('Ir a segunda pantalla'))
+        ],
+        
+      ),
     );
   }
 }
