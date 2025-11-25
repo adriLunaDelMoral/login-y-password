@@ -8,8 +8,8 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-TextEditingController loginController=TextEditingController();
-TextEditingController passController=TextEditingController();
+TextEditingController loginController = TextEditingController();
+TextEditingController passController = TextEditingController();
 
 class _LoginScreenState extends State<LoginScreen> {
   @override
@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
               contentPadding: EdgeInsets.symmetric(
                 vertical: 15,
                 horizontal: 15,
-              )
+              ),
             ),
           ),
           SizedBox(height: 20),
@@ -38,15 +38,44 @@ class _LoginScreenState extends State<LoginScreen> {
               contentPadding: EdgeInsets.symmetric(
                 vertical: 15,
                 horizontal: 15,
-              )
-            )
+              ),
+            ),
           ),
-          FilledButton.tonal(onPressed: (){
-               Navigator.of(context).push( MaterialPageRoute(  builder: (_) => ViewScreen()));
-          },
-           child: Text('Ir a segunda pantalla'))
+          FilledButton.tonal(
+            onPressed: () {
+              if (loginController.text == passController.text) {
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (_) => ViewScreen(userpass:loginController.text)));
+              }else{
+              showDialog<void>(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('AlertDialog Title'),
+                    content: Column(
+                      children: [
+                        Text('This is a demo alert dialog.'),
+                        Text('Would you like to approve of this message?'),
+                      ],
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Approve'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+            },
+            child: Text('Ir a segunda pantalla'),
+          ),
         ],
-        
       ),
     );
   }
