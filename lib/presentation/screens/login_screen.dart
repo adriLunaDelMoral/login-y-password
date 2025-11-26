@@ -53,16 +53,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 barrierDismissible: false,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: const Text('AlertDialog Title'),
+                    title: const Text('Error de inicio'),
                     content: Column(
                       children: [
-                        Text('This is a demo alert dialog.'),
-                        Text('Would you like to approve of this message?'),
+                        Text('usuario o contraseña incorrectos')
                       ],
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text('Approve'),
+                        child: const Text('aceptar'),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
