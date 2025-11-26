@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:login_password/presentation/screens/view_screen.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-TextEditingController loginController = TextEditingController();
-TextEditingController passController = TextEditingController();
-
-class _LoginScreenState extends State<LoginScreen> {
-  @override
   Widget build(BuildContext context) {
+
+    TextEditingController loginController = TextEditingController();
+    TextEditingController passController = TextEditingController();
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -79,3 +74,5 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+
