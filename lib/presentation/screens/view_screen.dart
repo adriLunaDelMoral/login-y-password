@@ -9,11 +9,20 @@ class ViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       //appBar: AppBar(title: Text('Welcome ${loginController.text}') ),
-      appBar: AppBar(title: Text('Welcome $userpass') ),
-      body: FilledButton.tonal(onPressed: (){
-        Navigator.of(context).pop();
-      },
-      child: Text('close session'))
+      appBar: AppBar(title: Text('Welcome $userpass'),
+        actions: [
+          FilledButton.tonal(
+            child: Text('close session'),
+            onPressed: (){
+              Navigator.of(context).pop();
+            }
+          ),
+        ]
+      ), 
     );
   }
 }
+
+//FilledButton.tonal(onPressed: (){
+//Navigator.of(context).pop();
+//title: Text('Welcome $userpass')

@@ -6,7 +6,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     TextEditingController loginController = TextEditingController();
     TextEditingController passController = TextEditingController();
     return Scaffold(
@@ -38,34 +37,15 @@ class LoginScreen extends StatelessWidget {
           ),
           FilledButton.tonal(
             onPressed: () {
-              if (loginController.text == passController.text) {
-                Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (_) => ViewScreen(userpass:loginController.text)));
-              }else{
-              showDialog<void>(
-                context: context,
-                barrierDismissible: false,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Error de inicio'),
-                    content: Column(
-                      children: [
-                        Text('usuario o contraseña incorrectos')
-                      ],
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('aceptar'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            }
+              if (loginController.text != passController.text || loginController.text.isEmpty) {
+                dialog(context);
+              } else {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ViewScreen(userpass: loginController.text),
+                  ),
+                );
+              }
             },
             child: Text('Ir a segunda pantalla'),
           ),
@@ -73,6 +53,32 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+
+  Future<dynamic> dialog(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return showDialog(
+      fullscreenDialog: false,
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(
+          child: SizedBox(
+            height: (size.height) * 0.3,
+            child: AlertDialog(
+              title: const Text('Error de inicio'),
+              content: Column(children: [Text('usuario o contraseña incorrectos')]),
+              actions: [
+                TextButton(
+                  child: const Text('aceptar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
-
-
