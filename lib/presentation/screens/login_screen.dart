@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:login_password/presentation/screens/view_screen.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const String name = 'LoginScreen';
+
   const LoginScreen({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -12,39 +17,16 @@ class LoginScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
-            controller: loginController,
-            decoration: InputDecoration(
-              hintText: 'Usuario',
-              border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: 15,
-              ),
-            ),
-          ),
+          TextForm(controller: passController, hintText: 'usuario'),
           SizedBox(height: 20),
-          TextFormField(
-            controller: passController,
-            decoration: InputDecoration(
-              hintText: 'Contraseña',
-              border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: 15,
-              ),
-            ),
-          ),
+          TextForm(controller: passController, hintText: 'contraseña'),
           FilledButton.tonal(
             onPressed: () {
               if (loginController.text != passController.text || loginController.text.isEmpty) {
                 dialog(context);
               } else {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => ViewScreen(userpass: loginController.text),
-                  ),
-                );
+                //Navigator.of(context).push(MaterialPageRoute(builder: (_) => ViewScreen(userpass: loginController.text),),
+                   context.goNamed("ViewScreen", pathParameters: {'userpass': loginController.text});
               }
             },
             child: Text('Ir a segunda pantalla'),
@@ -54,7 +36,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Future<dynamic> dialog(BuildContext context) {
+  Future<void> dialog(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return showDialog(
       fullscreenDialog: false,
@@ -79,6 +61,33 @@ class LoginScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class TextForm extends StatelessWidget {
+  const TextForm({
+    super.key,
+    required this.controller,
+    required this.hintText
+
+  });
+
+  final TextEditingController controller;
+  final String hintText;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: hintText,
+        border: OutlineInputBorder(),
+        contentPadding: EdgeInsets.symmetric(
+          vertical: 15,
+          horizontal: 15,
+        ),
+      ),
     );
   }
 }

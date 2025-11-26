@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 //import 'package:login_password/presentation/screens/login_screen.dart';
 
 class ViewScreen extends StatelessWidget {
+  static const String name = 'ViewScreen';
+
   const ViewScreen({super.key, required this.userpass});
   final String userpass;
 
@@ -14,7 +17,10 @@ class ViewScreen extends StatelessWidget {
           FilledButton.tonal(
             child: Text('close session'),
             onPressed: (){
-              Navigator.of(context).pop();
+              //Navigator.of(context).pop();
+              //context.pop();
+              context.goNamed("LoginScreen");
+
             }
           ),
         ]
