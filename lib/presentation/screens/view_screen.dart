@@ -20,6 +20,7 @@ class ViewScreen extends StatelessWidget {
               //Navigator.of(context).pop();
               //context.pop();
               context.goNamed("LoginScreen");
+              
 
             }
           ),

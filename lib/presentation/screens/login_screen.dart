@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:login_password/presentation/screens/view_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static const String name = 'LoginScreen';
 
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
-
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController loginController = TextEditingController();
@@ -17,7 +19,7 @@ class LoginScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextForm(controller: passController, hintText: 'usuario'),
+          TextForm(controller: loginController, hintText: 'usuario'),
           SizedBox(height: 20),
           TextForm(controller: passController, hintText: 'contraseña'),
           FilledButton.tonal(
@@ -27,6 +29,8 @@ class LoginScreen extends StatelessWidget {
               } else {
                 //Navigator.of(context).push(MaterialPageRoute(builder: (_) => ViewScreen(userpass: loginController.text),),
                    context.goNamed("ViewScreen", pathParameters: {'userpass': loginController.text});
+                   loginController.clear();
+                   passController.clear();
               }
             },
             child: Text('Ir a segunda pantalla'),
