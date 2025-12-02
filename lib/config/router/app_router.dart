@@ -5,18 +5,15 @@ import 'package:login_password/presentation/screens/view_screen.dart';
 final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
-
     GoRoute(
       path: '/',
       name: LoginScreen.name,
       builder: (context, state) => const LoginScreen(),
     ),
-
     GoRoute(
       path: '/viewScreen/:userpass',
       name: ViewScreen.name,
       builder: (context, state) => ViewScreen(userpass: state.pathParameters['userpass']!),
     ),
-
   ],
 );
