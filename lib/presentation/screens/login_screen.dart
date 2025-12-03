@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:login_password/domain/entities/users.dart';
+import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget {
+import '../providers/user_provider.dart';
+
+class LoginScreen extends StatelessWidget {
   static const String name = 'LoginScreen';
 
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
     TextEditingController loginController = TextEditingController();
     TextEditingController passController = TextEditingController();
     return Scaffold(
@@ -24,14 +24,23 @@ class _LoginScreenState extends State<LoginScreen> {
           TextForm(controller: passController, hintText: 'contraseña'),
           FilledButton.tonal(
             onPressed: () {
-              if (loginController.text != passController.text || loginController.text.isEmpty) {
-                dialog(context);
-              } else {
+              int bandera = 0;
+          
                 //Navigator.of(context).push(MaterialPageRoute(builder: (_) => ViewScreen(userpass: loginController.text),),
-                   context.goNamed("ViewScreen", pathParameters: {'userpass': loginController.text});
-                   loginController.clear();
-                   passController.clear();
-              }
+                  for (Users usuario in userProvider.allUsers)
+                  {
+                    if (usuario.username == loginController.text && usuario.password == passController.text)
+                    {
+                      bandera = 1;
+                      context.goNamed("ViewScreen", pathParameters: {'userpass': loginController.text});
+                    }
+                  }
+                  if (bandera == 0) dialog(context);
+                  //dialog(context);
+                  
+                  loginController.clear();
+                  passController.clear();
+              
             },
             child: Text('Ir a segunda pantalla'),
           ),

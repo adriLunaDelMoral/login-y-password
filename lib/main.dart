@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_password/config/router/app_router.dart';
+import 'package:login_password/presentation/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -12,12 +14,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      routerConfig: appRouter,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          lazy: false,
+          create: (_) => UserProvider()..getUsers()
+        ),
+      ],
+
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        routerConfig: appRouter,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
       ),
     );
   }
