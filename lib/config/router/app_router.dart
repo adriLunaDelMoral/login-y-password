@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:login_password/presentation/screens/contacts_screen.dart';
 import 'package:login_password/presentation/screens/login_screen.dart';
 import 'package:login_password/presentation/screens/view_screen.dart';
 
@@ -15,5 +16,11 @@ final appRouter = GoRouter(
       name: ViewScreen.name,
       builder: (context, state) => ViewScreen(userpass: state.pathParameters['userpass']!),
     ),
+    GoRoute(
+      path: '/ContactsScreen',
+      name: ContactsScreen.name,
+      builder: (context, state) => const ContactsScreen(),
+    ),
   ],
 );
+
